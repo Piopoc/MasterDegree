@@ -1,0 +1,243 @@
+{
+  "main": {
+    "id": "5324373015726ba8",
+    "type": "split",
+    "children": [
+      {
+        "id": "4f83feb0cc5914c0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "163244a4f8e61ed7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Courses/Advanced Text Analytics/Knowledge Resources for Text Analytics.md",
+                "mode": "preview",
+                "source": false,
+                "backlinks": false
+              },
+              "icon": "lucide-file",
+              "title": "Knowledge Resources for Text Analytics"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4b3f05e2fd0d759b",
+    "type": "split",
+    "children": [
+      {
+        "id": "3df1cce6bbbd7b3b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b9a05b04e139b727",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "byCreatedTimeReverse",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Esplora file"
+            }
+          },
+          {
+            "id": "5b7908f7d8175e9e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Ricerca"
+            }
+          },
+          {
+            "id": "99e635f1d765aae7",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Segnalibri"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 275
+  },
+  "right": {
+    "id": "3b7ff66a1937d1d9",
+    "type": "split",
+    "children": [
+      {
+        "id": "e26c060ac85c8471",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "df6b6a0d362dcc5e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Courses/Advanced Text Analytics/Knowledge Resources for Text Analytics.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Collegamenti in uscita"
+            }
+          },
+          {
+            "id": "fc0d78892b0aed24",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "alphabetical",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Etichette"
+            }
+          },
+          {
+            "id": "a67e734564c5e1ba",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Riferimenti"
+            }
+          },
+          {
+            "id": "f4f2a9a819507dac",
+            "type": "leaf",
+            "state": {
+              "type": "footnotes",
+              "state": {
+                "file": "Courses/Advanced Text Analytics/Knowledge Resources for Text Analytics.md"
+              },
+              "icon": "lucide-file-signature",
+              "title": "Note a piè di pagina"
+            }
+          },
+          {
+            "id": "c8fb6608a68e6c99",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Courses/Advanced Text Analytics/Knowledge Resources for Text Analytics.md",
+                "followCursor": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Struttura"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 247.7359619140625
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:Crea nuova Base": true,
+      "graph:Apri vista grafo": false,
+      "canvas:Crea nuova lavagna": false,
+      "templates:Inserisci modello": true,
+      "command-palette:Apri riquadro comandi": true,
+      "audio-recorder:Avvia/ferma registrazione": false,
+      "obsidian-kanban:Crea nuova bacheca": false,
+      "full-calendar-remastered:Apri Full Calendar": false,
+      "full-calendar-remastered:FCR Command": false
+    }
+  },
+  "active": "c8fb6608a68e6c99",
+  "lastOpenFiles": [
+    "Courses/Advanced Text Analytics/Advanced Text Analytics.md",
+    "Courses/Advanced Text Analytics/Knowledge Resources for Text Analytics.md",
+    "index.md",
+    "Daily/2026-10-16.md",
+    "Courses/Advanced Text Analytics/Annotation and Evaluation of Information Extraction.md",
+    "Kanban.md",
+    "_OPENCODE.md",
+    "log.md",
+    "raw/RDF.md",
+    "raw/Macrodata and Microdata.md",
+    "raw/Intro.md",
+    "Courses/Privacy Preserving Information Access/Privacy Preserving Information Access.md",
+    "Courses/Privacy Preserving Information Access/k-Anonymity.md",
+    "raw/k-anonymity.md",
+    "Courses/Graph Databases/Linked Open Data.md",
+    "Courses/Advanced Text Analytics/NLP Linguistic Structures and Annotation.md",
+    "maps/NotebookLM Mind Map.png",
+    "Courses/Privacy Preserving Information Access/Microdata Disclosure Risks and Sanitization.md",
+    "LaTeX Box Toolkit.md",
+    "Daily/2026-10-10.md",
+    "Courses/Graph Databases/RDF Data Model.md",
+    "Daily",
+    "raw/LOD.md",
+    "Courses/Privacy Preserving Information Access/Privacy Evaluation Metrics.md",
+    "Courses/Privacy Preserving Information Access/Macrodata Protection.md",
+    "Courses/Privacy Preserving Information Access/Microdata Masking and Synthetic Data.md",
+    "Courses/Privacy Preserving Information Access/SQL Injection and Defenses.md",
+    "Courses/Privacy Preserving Information Access/Data Security and Privacy Fundamentals.md",
+    "Senza nome.canvas",
+    "maps",
+    "Senza nome.base",
+    "sedJYEKgk",
+    "sedwAHsPb",
+    "Courses/Graph Databases",
+    "Courses/Game Theory",
+    "Courses/Advanced Text Analytics",
+    "Courses/Privacy Preserving Information Access",
+    "Courses",
+    "raw/NotebookLM Mind Map.png",
+    "dashboard.canvas",
+    "prova.canvas",
+    "Pictures/tcp_3way_handshake.png",
+    "Pictures/syn_flooding_attack.png",
+    "Pictures/tcp_reset_attack.png",
+    "Pictures/tcp_session_hijacking.png",
+    "Pictures/dns_hierarchy.png",
+    "Pictures/dns_query_process.png",
+    "Pictures/dns_cache_poisoning.png",
+    "Pictures/dns_rebinding.png",
+    "Software Platform/Senza nome.canvas",
+    "Tirocinio/Senza nome.canvas",
+    "Senza nome 1.canvas"
+  ]
+}
