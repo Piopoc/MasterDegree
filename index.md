@@ -21,6 +21,7 @@
 - [[NLP Linguistic Structures and Annotation]] - word vs. token, annotation pipeline, phrase/clause hierarchy, dependency vs. constituency grammar
 - [[Knowledge Resources for Text Analytics]] - gazetteers, terminologies, controlled vocabularies, taxonomies, thesauri, ontologies, knowledge bases/graphs; mention recognition vs concept normalization
 - [[Annotation and Evaluation of Information Extraction]] - span annotation, BIO/BILOU, Cohen's kappa, P/R/F1, exact vs relaxed matching, micro vs macro averaging, relation and pipeline evaluation
+- [[TF-IDF and Static Embeddings]] - BoW limits, TF-IDF + L2 norm, cosine similarity, distributional hypothesis, Skip-gram in NumPy, FastText subwords, one-vector-per-type limit (ATA Lecture 7)
 
 ### Game Theory
 - [[Game Theory]] - course index placeholder (no raw material ingested yet)
@@ -39,6 +40,7 @@
 - [[NLP]] - English briefing on linguistic structures and computational annotations in NLP
 - [[ATA_L05]] - English briefing on knowledge resources for text analytics (Advanced Text Analytics, Lecture 5)
 - [[ATA_L06]] - English briefing on annotation and evaluation of information extraction (Advanced Text Analytics, Lecture 6)
+- [[ATA_L07]] - English briefing on TF-IDF and static embeddings: BoW, cosine, Skip-gram from scratch (Advanced Text Analytics, Lecture 7)
 - [[LOTUS]] - Italian summary of the Patel et al. PVLDB 2025 LOTUS paper
 - [[LOD]] - English briefing on Linked Open Data: principles, architecture, 5-star deployment (Graph Databases)
 - [[RDF]] - English technical briefing on the Resource Description Framework (Graph Databases)
@@ -51,7 +53,6 @@
 ## Daily
 
 - [[2026-10-10]] - daily note: vault work session recap (health cleanup, kanban + GCal setup, maps workflow, LOD/RDF ingest), open follow-ups
-- [[2026-10-16]] - daily note: ATA Lectures 5 & 6 ingest into Advanced Text Analytics (Knowledge Resources; Annotation and Evaluation)
 
 ## Root
 
@@ -63,4 +64,4 @@
 - `maps/` - folder of important images, cited as plain text (see -> maps/...)
 
 ---
-*Stats: 18 course files (14 study notes, 4 course indexes) + 10 raw sources + 1 map image. Citations live in each note's `## Sources` footer; structural links in `## Related`. Last refreshed: 2026-10-16.*
+*Stats: 19 course files (15 study notes, 4 course indexes) + 11 raw sources + 1 map image. Citations live in each note's `## Sources` footer; structural links in `## Related`. Last refreshed: 2026-10-19.*

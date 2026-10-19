@@ -26,6 +26,7 @@ Course index for **Advanced Text Analytics (ATA)** - the hub note linking all st
 1. [[NLP Linguistic Structures and Annotation]] - word vs. token, annotation pipeline, phrase/clause hierarchy, dependency vs. constituency grammar.
 2. [[Knowledge Resources for Text Analytics]] - lists/gazetteers, terminologies, controlled vocabularies, taxonomies, thesauri, ontologies, knowledge bases/graphs; mention recognition vs concept normalization.
 3. [[Annotation and Evaluation of Information Extraction]] - span annotation, BIO/BILOU, inter-annotator agreement (Cohen's kappa), P/R/F1, exact vs relaxed matching, micro vs macro averaging, relation and pipeline evaluation.
+4. [[TF-IDF and Static Embeddings]] - Bag of Words limits, TF-IDF weighting and L2 normalization, cosine similarity, distributional hypothesis, hand-built dense space, Skip-gram from scratch in NumPy, association strength, nearest-neighbor caveats, FastText subwords, one-vector-per-type limit.
 
 > **Reassignment (2026-10-09):** the [[LOTUS Semantic Operators]] note originally created under this course was moved to [[Graph Databases]] at the user's request. Cross-course link kept: the linguistic layer of [[NLP Linguistic Structures and Annotation]] still underpins semantic predicates.
 
@@ -34,5 +35,6 @@ Course index for **Advanced Text Analytics (ATA)** - the hub note linking all st
 - [[NLP]] - "Linguistic Structures and Computational Annotations in NLP" (English)
 - [[ATA_L05]] - "Knowledge Resources for Text Analytics" (Lecture 5, English)
 - [[ATA_L06]] - "Annotation and Evaluation of Information Extraction" (Lecture 6, English)
+- [[ATA_L07]] - "From features to representations" - TF-IDF and static embeddings (Lecture 7, English)
 
 *Note: [[LOTUS]] (the LOTUS paper summary) now serves [[Graph Databases]].*
