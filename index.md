@@ -22,6 +22,7 @@
 - [[Knowledge Resources for Text Analytics]] - gazetteers, terminologies, controlled vocabularies, taxonomies, thesauri, ontologies, knowledge bases/graphs; mention recognition vs concept normalization
 - [[Annotation and Evaluation of Information Extraction]] - span annotation, BIO/BILOU, Cohen's kappa, P/R/F1, exact vs relaxed matching, micro vs macro averaging, relation and pipeline evaluation
 - [[TF-IDF and Static Embeddings]] - BoW limits, TF-IDF + L2 norm, cosine similarity, distributional hypothesis, Skip-gram in NumPy, FastText subwords, one-vector-per-type limit (ATA Lecture 7)
+- [[Recurrent Neural Networks and LSTMs]] - hidden-state recurrence, parameter sharing, vanishing/exploding gradients, LSTM gates and cell state, bidirectional models, NER label pipeline (ATA Lecture 8)
 
 ### Game Theory
 - [[Game Theory]] - course index placeholder (no raw material ingested yet)
@@ -41,6 +42,8 @@
 - [[ATA_L05]] - English briefing on knowledge resources for text analytics (Advanced Text Analytics, Lecture 5)
 - [[ATA_L06]] - English briefing on annotation and evaluation of information extraction (Advanced Text Analytics, Lecture 6)
 - [[ATA_L07]] - English briefing on TF-IDF and static embeddings: BoW, cosine, Skip-gram from scratch (Advanced Text Analytics, Lecture 7)
+- [[ATA_L08]] - companion notes on RNNs and LSTMs for text analytics: slides + NumPy notebook walkthrough (Advanced Text Analytics, Lecture 8)
+- [[RNN & LSTM]] - concise English briefing on RNNs and LSTMs in text analytics, Jurafsky & Martin figure references (Advanced Text Analytics, Lecture 8)
 - [[LOTUS]] - Italian summary of the Patel et al. PVLDB 2025 LOTUS paper
 - [[LOD]] - English briefing on Linked Open Data: principles, architecture, 5-star deployment (Graph Databases)
 - [[RDF]] - English technical briefing on the Resource Description Framework (Graph Databases)
@@ -64,4 +67,4 @@
 - `maps/` - folder of important images, cited as plain text (see -> maps/...)
 
 ---
-*Stats: 19 course files (15 study notes, 4 course indexes) + 11 raw sources + 1 map image. Citations live in each note's `## Sources` footer; structural links in `## Related`. Last refreshed: 2026-10-19.*
+*Stats: 20 course files (16 study notes, 4 course indexes) + 13 raw sources + 1 map image. Citations live in each note's `## Sources` footer; structural links in `## Related`. Last refreshed: 2026-10-21.*
