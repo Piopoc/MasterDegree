@@ -1,70 +1,37 @@
 # Index
 
-> Catalog of all vault pages. Read this first when navigating the vault - faster and cheaper on tokens than searching.
-> Format: `- [[Intro]] - brief description`. Update whenever a note is created or deleted.
+> Root entry-point catalog. It lists **course indexes, folders and structural files only** - not
+> individual study notes or raw sources, because each course index already lists its own notes and
+> each study note carries its own `## Sources` footer.
+> Format: `- [[Note Name]] - brief description`. Update when a course, a daily note or a root file changes.
 
 ## Courses
 
-### Privacy Preserving Information Access
-- [[Privacy Preserving Information Access]] - course index: identity, note list, conceptual map, raw sources
-- [[Data Security and Privacy Fundamentals]] - attribute taxonomy, security vs. privacy, GDPR, privacy as evolutionary need
-- [[Database Foundations and Architecture]] - DB/DBMS/UoD, ANSI/SPARC levels, design phases, relational model, platform case studies
-- [[SQL Injection and Defenses]] - SQLi anatomy, OWASP ranking, PreparedStatement, tautology and DDL attacks
-- [[Macrodata Protection]] - release paradigms, sensitive cells, suppression/rounding/CTA, (n,k)-rule and p-percentage rule
-- [[Microdata Disclosure Risks and Sanitization]] - identity/attribute/inferential disclosure, outliers, natural defenses, desiderata
-- [[Microdata Masking and Synthetic Data]] - full masking + synthetic-data technique catalog with applicability matrix
-- [[Privacy Evaluation Metrics]] - confidentiality measurement, information loss, R-U map (mind-map level, details TBD)
-- [[k-Anonymity]] - identity-linking threat, formal definition and q-blocks, generalization/suppression, k-minimality, Mondrian algorithm
+Each course index is the single place where that course's study notes are listed.
 
-### Advanced Text Analytics
-- [[Advanced Text Analytics]] - course index: identity (partly TBD), note list, reassignment record
-- [[NLP Linguistic Structures and Annotation]] - word vs. token, annotation pipeline, phrase/clause hierarchy, dependency vs. constituency grammar
-- [[Knowledge Resources for Text Analytics]] - gazetteers, terminologies, controlled vocabularies, taxonomies, thesauri, ontologies, knowledge bases/graphs; mention recognition vs concept normalization
-- [[Annotation and Evaluation of Information Extraction]] - span annotation, BIO/BILOU, Cohen's kappa, P/R/F1, exact vs relaxed matching, micro vs macro averaging, relation and pipeline evaluation
-- [[TF-IDF and Static Embeddings]] - BoW limits, TF-IDF + L2 norm, cosine similarity, distributional hypothesis, Skip-gram in NumPy, FastText subwords, one-vector-per-type limit (ATA Lecture 7)
-- [[Recurrent Neural Networks and LSTMs]] - hidden-state recurrence, parameter sharing, vanishing/exploding gradients, LSTM gates and cell state, bidirectional models, NER label pipeline (ATA Lecture 8)
-
-### Game Theory
-- [[Game Theory]] - course index placeholder (no raw material ingested yet)
-
-### Graph Databases
-- [[Graph Databases]] - course index: identity (partly TBD), note list, ingest checklist
-- [[LOTUS Semantic Operators]] - semantic operators, langex, reference algorithms, accuracy-guaranteed optimization, PVLDB 2025 citation (reassigned from Advanced Text Analytics 2026-10-09)
-- [[Linked Open Data]] - open data licensing, TBL design principles, URI/URL distinction, content negotiation, hash vs slash URIs, 5-star schema
-- [[RDF Data Model]] - triples, identity resolution and graph merging, CURIEs/namespaces, literals, blank nodes, reification, named graphs, serializations
-
-## Raw Sources (immutable)
-
-- [[Intro]] - "Fondamenti di Basi di Dati, Sicurezza e Privacy" - Italian quiz/glossary on DB fundamentals, SQLi, privacy
-- [[Macrodata and Microdata]] - English briefing on macrodata and microdata protection (PPIA, AY 2026/2027)
-- [[microdati]] - Italian catalog of microdata masking and synthetic-data techniques
-- [[NLP]] - English briefing on linguistic structures and computational annotations in NLP
-- [[ATA_L05]] - English briefing on knowledge resources for text analytics (Advanced Text Analytics, Lecture 5)
-- [[ATA_L06]] - English briefing on annotation and evaluation of information extraction (Advanced Text Analytics, Lecture 6)
-- [[ATA_L07]] - English briefing on TF-IDF and static embeddings: BoW, cosine, Skip-gram from scratch (Advanced Text Analytics, Lecture 7)
-- [[ATA_L08]] - companion notes on RNNs and LSTMs for text analytics: slides + NumPy notebook walkthrough (Advanced Text Analytics, Lecture 8)
-- [[RNN & LSTM]] - concise English briefing on RNNs and LSTMs in text analytics, Jurafsky & Martin figure references (Advanced Text Analytics, Lecture 8)
-- [[LOTUS]] - Italian summary of the Patel et al. PVLDB 2025 LOTUS paper
-- [[LOD]] - English briefing on Linked Open Data: principles, architecture, 5-star deployment (Graph Databases)
-- [[RDF]] - English technical briefing on the Resource Description Framework (Graph Databases)
-- [[k-anonymity]] - English briefing on the k-anonymity framework: definition, generalization/suppression, minimality, Mondrian (PPIA)
-
-## Maps (important referenced images)
-
-- (see -> maps/NotebookLM Mind Map.png) - NotebookLM mind map of the macro/microdata source (includes evaluation-metrics branch; moved here from raw/ when cited)
+- [[Privacy Preserving Information Access]] - course index (8 study notes): data security & privacy fundamentals, database foundations, SQL injection, macrodata protection, microdata disclosure & sanitization, masking & synthetic data, evaluation metrics, k-anonymity
+- [[Advanced Text Analytics]] - course index (5 study notes): NLP linguistic structures & annotation, knowledge resources, information extraction annotation & evaluation, TF-IDF & static embeddings, RNNs & LSTMs
+- [[Graph Databases]] - course index (3 study notes): LOTUS semantic operators, Linked Open Data, RDF data model
+- [[Game Theory]] - course index (placeholder): no raw material ingested yet
 
 ## Daily
 
-- [[2026-10-10]] - daily note: vault work session recap (health cleanup, kanban + GCal setup, maps workflow, LOD/RDF ingest), open follow-ups
+- [[2026-10-10]] - vault work session recap (health cleanup, kanban + GCal setup, maps workflow, LOD/RDF ingest), open follow-ups
 
-## Root
+## Folders and assets
+
+- `raw/` - immutable source texts (13 files). Every raw file is cited from the `## Sources` footer of the study note it produced - follow those links, do not list raw files here.
+- `maps/` - referenced images, cited in notes as plain text `(see -> maps/...)`
+- `Courses/` - one folder per course; each holds its course index note and the study notes it lists
+- `Daily/` - daily notes, created only on user request (see `_OPENCODE.md` Section 4)
+
+## Root files
 
 - [_OPENCODE.md](_OPENCODE.md) - operating rules for agents in this vault (read first)
 - [[Kanban]] - kanban board for course tasks (Graph Databases / Advanced Text Analytics / PPIA)
 - [[LaTeX Box Toolkit]] - recipes for LaTeX boxes in notes (definition boxes, cross-link boxes)
-- [log.md](log.md) - append-only operation log
+- [log.md](log.md) - append-only operation log (the session audit trail)
 - [index.md](index.md) - this file
-- `maps/` - folder of important images, cited as plain text (see -> maps/...)
 
 ---
-*Stats: 20 course files (16 study notes, 4 course indexes) + 13 raw sources + 1 map image. Citations live in each note's `## Sources` footer; structural links in `## Related`. Last refreshed: 2026-10-21.*
+*Stats: 4 courses (20 course files = 16 study notes + 4 course indexes) + 13 raw sources + 1 map image. Two-level catalog: this file = entry points, course indexes = note lists, study notes = provenance. Last refreshed: 2026-10-22.*

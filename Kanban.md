@@ -6,7 +6,6 @@ kanban-plugin: board
 
 ## Backlog
 
-- [ ] gruppi per vari progetti
 
 
 ## In Progress
@@ -15,10 +14,13 @@ kanban-plugin: board
 
 ## Waiting
 
+- [ ] Recupera lezione di GT del `21/10`
+- [ ] Recupera lezione di GDB del `22/10`
 
 
 ## Done
 
+- [ ] gruppi per vari progetti
 
 
 

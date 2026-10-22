@@ -25,10 +25,6 @@ Course index for **Game Theory** - placeholder created 2026-10-09 during the vau
 
 *None yet - TBD.*
 
-## Raw Sources for This Course
-
-*None yet.* No file in `raw/` maps to Game Theory (verified 2026-10-09 by full vault scan).
-
 ## First Ingest Checklist (for the next agent)
 
 1. User drops source material into `raw/` (lecture notes, quiz exports, NotebookLM maps).

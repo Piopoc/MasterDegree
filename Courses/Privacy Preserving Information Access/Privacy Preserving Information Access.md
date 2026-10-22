@@ -31,25 +31,3 @@ Course index for **Privacy Preserving Information Access (PPIA)** - the hub note
 6. [[Microdata Masking and Synthetic Data]] - full technique catalog (non-perturbative, perturbative, synthetic) with applicability matrix.
 7. [[Privacy Evaluation Metrics]] - confidentiality measurement, information loss, R-U map (mind-map level, details TBD).
 8. [[k-Anonymity]] - identity-linking threat, formal definition and q-blocks, generalization/suppression, k-minimality metrics, Mondrian algorithm.
-
-## Conceptual Map
-
-```
-Fundamentals ──▶ Macrodata Protection ──▶ Microdata Protection ──▶ Evaluation
-(Data Security      (Macrodata            (Microdata Disclosure    (Privacy
- and Privacy         Protection)           Risks and Sanitization,  Evaluation
- Fundamentals)                             Microdata Masking        Metrics)
-                                           and Synthetic Data,
-                                           k-Anonymity)
-                                           and Synthetic Data)
-```
-
-Links live in the numbered note list above (wikilinks are not rendered inside code blocks). This mirrors the structure of the (see -> maps/NotebookLM Mind Map.png) for the core reading.
-
-## Raw Sources for This Course
-
-- [[Intro]] - "Fondamenti di Basi di Dati, Sicurezza e Privacy" (Italian, quiz + glossary format)
-- [[Macrodata and Microdata]] - full briefing on macro/microdata protection (English)
-- [[microdati]] - detailed masking-technique catalog (Italian)
-- [[k-anonymity]] - English briefing on the k-anonymity framework (definition, generalization/suppression, Mondrian)
-- (see -> maps/NotebookLM Mind Map.png) - mind map of the macro/microdata source (includes evaluation-metrics branch absent from the markdown)

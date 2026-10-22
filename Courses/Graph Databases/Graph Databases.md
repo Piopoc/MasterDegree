@@ -27,13 +27,6 @@ Course index for **Graph Databases** - the hub note linking all study notes for 
 2. [[Linked Open Data]] - open data licensing, Semantic Web principles, URI design, content negotiation, 5-star schema.
 3. [[RDF Data Model]] - triples, identity/graph merging, CURIEs, literals, blank nodes, named graphs, serializations.
 
-## Raw Sources for This Course
-
-- [[LOTUS]] - summary of the Patel et al. PVLDB 2025 paper (Italian)
-- [[LOD]] - Linked Open Data briefing: principles, architecture, frameworks (English)
-- [[RDF]] - Resource Description Framework technical briefing (English)
-- [PVLDB paper](https://www.vldb.org/pvldb/vol18/p4171-patel.pdf) - Patel et al. 2025, primary paper behind [[LOTUS Semantic Operators]]
-
 ## Ingest Checklist (for the next agent)
 
 1. User drops source material into `raw/` (lecture notes, quiz exports, NotebookLM maps).
