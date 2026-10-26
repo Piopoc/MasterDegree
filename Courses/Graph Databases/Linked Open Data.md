@@ -134,6 +134,7 @@ Progressive technical maturity model for publishing Linked Open Data:
 - [[LOTUS Semantic Operators]] - knowledge-graph applications
 - [[Graph Databases]] - course hub
 - [[Database Foundations and Architecture]] - cross-course: URI/data modeling vs. classical DB modeling
+- [[OWL SKOS Punning Football Ontology]] - merged lecture note covering OWL, SKOS, punning, football ontology
 
 ## Sources
 

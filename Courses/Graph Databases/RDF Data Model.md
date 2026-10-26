@@ -162,6 +162,7 @@ Statements often carry metadata (validity, license, price, provenance), e.g. *"I
 - [[Graph Databases]] - course hub
 - [[LOTUS Semantic Operators]] - knowledge-graph query layer
 - [[Database Foundations and Architecture]] - cross-course: the database models this course extends
+- [[OWL SKOS Punning Football Ontology]] - merged lecture note covering OWL, SKOS, punning, football ontology
 
 ## Sources
 

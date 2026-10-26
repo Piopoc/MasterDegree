@@ -26,6 +26,7 @@ Course index for **Graph Databases** - the hub note linking all study notes for 
 1. [[LOTUS Semantic Operators]] - semantic operators, langex, reference algorithms, accuracy-guaranteed optimization, the LOTUS framework.
 2. [[Linked Open Data]] - open data licensing, Semantic Web principles, URI design, content negotiation, 5-star schema.
 3. [[RDF Data Model]] - triples, identity/graph merging, CURIEs, literals, blank nodes, named graphs, serializations.
+4. [[OWL SKOS Punning Football Ontology]] - merged lecture note: OWL `hasValue`/quantifiers, classism/minimality, SKOS, punning, football ontology case study.
 
 ## Ingest Checklist (for the next agent)
 

@@ -6,6 +6,7 @@ kanban-plugin: board
 
 ## Backlog
 
+- [ ] mail github silvello                     scadenza: @{30-10-26}
 
 
 ## In Progress
