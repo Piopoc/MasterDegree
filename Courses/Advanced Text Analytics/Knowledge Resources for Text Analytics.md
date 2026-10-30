@@ -19,7 +19,7 @@ Study note for the [[Advanced Text Analytics]] course (Lecture 5) on **knowledge
 
 Lecture 4 built explicit knowledge as **rules and patterns**. This lecture asks the prior question: *where does the knowledge inside those rules come from?* When a system flags `breast cancer`, `myocardial infarction`, or `BRCA1`, the expression has to originate somewhere.
 
-The lecture walks the ladder of knowledge resources - from plain name lists to full knowledge graphs - with biomedical and legal examples. Every code demo runs on spaCy (`en_core_web_sm`) and its `PhraseMatcher`, kept deliberately small so each resource type's *matching behavior* is visible without engineering noise.
+The lecture walks the ladder of knowledge resources - from plain name lists to full knowledge graphs - with biomedical and legal examples. The notebook demos behind this note are collected in [[Knowledge Resources for Text Analytics - Notebook]].
 
 The organizing idea is that different resources encode **different kinds of knowledge**: names, concepts, hierarchies, relations, or facts. The lecture's tension is that of *Mention Recognition* versus *Concept Normalization* (see Section 3): finding a string in text is not the same as deciding what it refers to.
 
@@ -34,8 +34,6 @@ A **gazetteer** closes that gap by pairing each name with a category:
 | `BRCA1` | `GENE` |
 | `TP53` | `GENE` |
 | `breast cancer` | `DISEASE` |
-
-In the notebook, a `PhraseMatcher` built over the gazetteer's keys tags `BRCA1` and `TP53` correctly in a sample sentence.
 
 The critical analytical caveat from the lecture: **membership in a gazetteer is evidence, not interpretation.** The canonical example is `Washington`, which can denote a person, a city, a state, or an institution. The resource *narrows the possibilities*; the surrounding context decides among them. A gazetteer answer answers one question only: *is this string a known member of a category?*
 
@@ -63,7 +61,7 @@ A **taxonomy** adds a broader/narrower **hierarchy** over concepts:
 
 $$\text{Myocardial infarction} \;\subset\; \text{Ischemic heart disease} \;\subset\; \text{Cardiovascular disease} \;\subset\; \text{Disease}$$
 
-The notebook walks this chain with a small `broader_concepts` function returning `['Ischemic heart disease', 'Cardiovascular disease', 'Disease']`. Hierarchies support query expansion, classification, aggregation, semantic search, and hierarchical evaluation.
+Hierarchies support query expansion, classification, aggregation, semantic search, and hierarchical evaluation.
 
 A **thesaurus** keeps that hierarchy and adds **associative links**. Its standard relation set is:
 
@@ -112,7 +110,7 @@ The teaching distinction:
 - the **ontology** is the *conceptual schema* (what kinds of things and relations exist);
 - the **knowledge base** is the *facts* stated using some schema.
 
-The notebook stores triples such as `("BRCA1", "associated_with", "breast cancer")` and answers a query by **filtering on subject and relation**. Viewed as a graph, entities and classes become **nodes** while assertions become **edges** - the same triple model that underpins the Semantic Web graph of [[RDF Data Model]] (cross-course).
+Viewed as a graph, entities and classes become **nodes** while assertions become **edges** - the same triple model that underpins the Semantic Web graph of [[RDF Data Model]] (cross-course).
 
 That graph view supports linking, enrichment, validation, search, question answering, and reasoning. The knowledge base answers the last and most specific question of the whole ladder: *what facts are known about this particular entity or concept?*
 

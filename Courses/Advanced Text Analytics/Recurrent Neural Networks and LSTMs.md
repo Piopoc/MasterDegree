@@ -17,7 +17,7 @@ ai-first: true
 
 ## For Future Agent
 
-Study note for the [[Advanced Text Analytics]] course (Lecture 8) on **recurrent models for text**: what an RNN adds on top of static embeddings, why simple RNNs lose long-distance information, and how LSTMs, bidirectional runs and a label classifier turn a token sequence into contextual representations for sequence labelling (POS tagging, NER). Created 2026-10-21 by merging [[ATA_L08]] (detailed companion to the lecture slides and the NumPy notebook, with reproducible dry-run numbers) and [[RNN & LSTM]] (concise briefing that carries the Jurafsky & Martin figure references). Use it when a question involves the hidden-state recurrence, parameter sharing across time, vanishing/exploding gradient intuition, LSTM gates, cell state versus hidden state, bidirectional concatenation, or the token-to-label pipeline. Central caveat: every printed number in the lecture comes from **untrained random weights** - the values illustrate the mechanics, never model quality.
+Study note for the [[Advanced Text Analytics]] course (Lecture 8) on **recurrent models for text**: what an RNN adds on top of static embeddings, why simple RNNs lose long-distance information, and how LSTMs, bidirectional runs and a label classifier turn a token sequence into contextual representations for sequence labelling (POS tagging, NER). Created 2026-10-21 by merging [[ATA_L08]] (detailed companion to the lecture slides and the NumPy notebook, with reproducible dry-run numbers) and [[RNN & LSTM]] (concise briefing that carries the Jurafsky & Martin figure references). Use it when a question involves the hidden-state recurrence, parameter sharing across time, vanishing/exploding gradient intuition, LSTM gates, cell state versus hidden state, bidirectional concatenation, or the token-to-label pipeline. Central caveat: every printed number in the lecture comes from **untrained random weights** - the values illustrate the mechanics, never model quality. The concrete notebook walkthroughs (embedding lookup, `rnn_step` dry run, label projection, LSTM gates, bidirectional loop) live in [[Recurrent Neural Networks and LSTMs - Notebook]].
 
 ## 1. Why Sequence Models
 
@@ -50,24 +50,7 @@ static embeddings
 
 ### 1.1 From a sentence to a matrix of vectors
 
-The lecture keeps a six-word biomedical vocabulary and a 4-dimensional embedding table:
-
-```text
-vocab = [brca1, mutations, increase, breast, cancer, risk]
-embedding_dim = 4     ->   W_embed has shape (6, 4)
-```
-
-```text
-              d1     d2     d3     d4
-brca1      0.152 -0.520  0.375  0.470
-mutations -0.976 -0.651  0.064 -0.158
-increase  -0.008 -0.427  0.440  0.389
-breast     0.033  0.564  0.234 -0.430
-cancer     0.184 -0.479  0.439 -0.025
-risk      -0.092 -0.340  0.611 -0.077
-```
-
-Looking up the sentence produces `X` of shape `(6, 4)` - one row per position, one column per embedding dimension. Position now matters: $\mathbf{x}_1$ is processed before $\mathbf{x}_2$, and so on. Everything from here starts **from the same embeddings as Lecture 7**, but consumes them as an ordered sequence.
+The lecture keeps a six-word biomedical vocabulary and a 4-dimensional embedding table (`W_embed` of shape (6, 4), printed values in [[Recurrent Neural Networks and LSTMs - Notebook#1. Embedding Lookup]]). Looking up the sentence produces `X` of shape `(6, 4)` - one row per position, one column per embedding dimension. Position now matters: $\mathbf{x}_1$ is processed before $\mathbf{x}_2$, and so on. Everything from here starts **from the same embeddings as Lecture 7**, but consumes them as an ordered sequence.
 
 ## 2. What an RNN Adds: the Hidden State
 
@@ -95,38 +78,7 @@ With `hidden_dim = 5`:
 
 ### 2.2 One step, then the whole sentence
 
-```python
-def rnn_step(x_t, h_prev, W_x, W_h, b_h):
-    return np.tanh(W_x @ x_t + W_h @ h_prev + b_h)
-```
-
-The first step starts from a zero hidden state, so $h_1$ is essentially a transformed `BRCA1`:
-
-```text
-Token: brca1
-x1 = [ 0.152 -0.52   0.375  0.47 ]
-h1 = [ 0.193  0.179  0.416  0.165 -0.123]
-```
-
-The second step already has context: $h_2$ is the representation of `mutations` **after reading `BRCA1 mutations`**, not a static embedding of the word type:
-
-```text
-Current token: mutations
-Previous hidden state h1: [ 0.193  0.179  0.416  0.165 -0.123]
-New hidden state h2     : [ 0.38  -0.141  0.354  0.082 -0.448]
-```
-
-Running the loop over all six tokens yields `H` of shape `(6, 5)` - one hidden vector per token:
-
-```text
-              h1     h2     h3     h4     h5
-brca1      0.193  0.179  0.416  0.165 -0.123
-mutations  0.380 -0.141  0.354  0.082 -0.448
-increase   0.222  0.320  0.504  0.193 -0.319
-breast     0.046  0.439 -0.273 -0.564 -0.021
-cancer     0.015  0.567 -0.203 -0.274  0.119
-risk       0.168  0.552 -0.085 -0.415  0.033
-```
+The step function is a one-liner (`np.tanh(W_x @ x_t + W_h @ h_prev + b_h)`); the notebook dry-runs it token by token, showing $h_1$ as essentially a transformed `BRCA1` (zero initial state) and $h_2$ as the representation of `mutations` **after reading `BRCA1 mutations`** - not a static embedding of the word type. Running the loop over all six tokens yields `H` of shape `(6, 5)`; full printed states in [[Recurrent Neural Networks and LSTMs - Notebook#2. The RNN Step]].
 
 The conceptual difference from Lecture 7 in one box:
 
@@ -157,16 +109,7 @@ A dimension has **no predefined linguistic meaning**: nobody decided in advance 
 
 ## 3. What Is Shared Across Time
 
-An unrolled RNN looks like a different network at every position. It is not: the same $W_x$, $W_h$, $b_h$ are reused at $t = 1, 2, \dots, n$; only the values $x_t$, $h_{t-1}$, $h_t$ change.
-
-```text
-t=1  token=brca1      first hidden value= 0.193
-t=2  token=mutations  first hidden value= 0.380
-t=3  token=increase   first hidden value= 0.222
-t=4  token=breast     first hidden value= 0.046
-t=5  token=cancer     first hidden value= 0.015
-t=6  token=risk       first hidden value= 0.168
-```
+An unrolled RNN looks like a different network at every position. It is not: the same $W_x$, $W_h$, $b_h$ are reused at $t = 1, 2, \dots, n$; only the values $x_t$, $h_{t-1}$, $h_t$ change (the notebook prints the first hidden coordinate at each step to make this visible: [[Recurrent Neural Networks and LSTMs - Notebook#3. Parameter Sharing Across Time]]).
 
 Same computation, different state. This **parameter sharing** is what lets the model accept sequences of variable length: extend the sentence and nothing in the architecture changes. In the textbook diagram (Jurafsky & Martin, Figure 13.2) the same structure appears as a feedforward network with a weight matrix $U$ on the previous hidden state, $W$ on the current input, and $V$ producing the output $y_t$ - the naming differs from the notebook ($W_h$, $W_x$, label head), the roles are identical.
 
@@ -182,33 +125,9 @@ Sequence labelling is the relevant family for this course, because it leads dire
 
 ### 4.1 From hidden states to label scores
 
-Take a small BIO label set and one projection matrix:
+Take a small BIO label set (`O`, `B-GENE`, `B-DISEASE`, `I-DISEASE`) and one projection matrix $W_{label}$ (5, 4): `label_scores = H @ W_label` turns the `(6, 5)` hidden matrix into `(6, 4)` scores, one row of evidence per position given everything read so far. Full code and printed scores in [[Recurrent Neural Networks and LSTMs - Notebook#4. Label-Score Projection (Random Weights)]].
 
-```python
-labels = ["O", "B-GENE", "B-DISEASE", "I-DISEASE"]
-W_label = rng.normal(0, 0.4, size=(5, 4))   # hidden dims -> labels
-label_scores = H @ W_label                   # (6, 5) @ (5, 4) = (6, 4)
-```
-
-```text
-H         = (6, 5)     6 tokens x 5 hidden dimensions
-W_label   = (5, 4)     5 hidden dimensions -> 4 label scores
-scores    = (6, 4)     6 tokens x 4 candidate labels
-```
-
-Each row is the evidence available at that position, given everything read so far:
-
-```text
-                O  B-GENE  B-DISEASE  I-DISEASE
-brca1     -0.239   0.248      0.089     -0.113
-mutations -0.236   0.034      0.290     -0.106
-increase  -0.366   0.201      0.162     -0.083
-breast    -0.332  -0.216     -0.359     -0.042
-cancer    -0.343  -0.066     -0.305      0.010
-risk      -0.462  -0.027     -0.334     -0.101
-```
-
-With trained weights, `BRCA1` would score high on `B-GENE` and `breast` high on `B-DISEASE`. With random weights the scores are noise - `argmax` therefore predicts `B-GENE`, `B-DISEASE`, `B-GENE`, `I-DISEASE`, `I-DISEASE`, `B-GENE`, which is meaningless as a model output but architecturally instructive: **the classifier acts on the contextual hidden state, not on the static embedding**.
+With trained weights, `BRCA1` would score high on `B-GENE` and `breast` high on `B-DISEASE`. With random weights the scores are noise, and `argmax` predicts a meaningless label sequence - architecturally instructive all the same: **the classifier acts on the contextual hidden state, not on the static embedding**.
 
 ```text
 token -> embedding -> RNN -> 5-dim contextual vector -> W_label -> 4 label scores -> argmax
@@ -240,17 +159,7 @@ To predict `were` correctly the model needs the plural subject `flights`, but `a
 
 ### 5.1 Repeated multiplication as intuition for vanishing gradients
 
-The notebook illustrates the effect with a toy curve rather than a training run:
-
-```python
-vanishing  = 0.8  ** steps    # factor below 1
-exploding  = 1.15 ** steps    # factor above 1
-
-1.0 -> 0.8 -> 0.64 -> 0.512 -> 0.4096 -> 0.3277 -> ...
-```
-
-- After about **10 steps** the signal is at **11%** of its original size; after **30 steps** it is under **0.13%**.
-- Multiplied the other way, a factor of 1.15 grows the signal by a factor of **66** over 30 steps.
+The notebook illustrates the effect with a toy curve (0.8 per step decays to 11% after ~10 steps and under 0.13% after 30; a factor of 1.15 grows a signal 66-fold over 30 steps - [[Recurrent Neural Networks and LSTMs - Notebook#5. Vanishing/Exploding Toy Curve]]).
 
 The graph is **intuition, not proof**: real RNN gradients involve matrices, chain rules and many interacting terms. The general point stands - repeated factors below 1 make signals shrink (vanishing gradient), repeated factors above 1 make them grow rapidly (exploding gradient).
 
@@ -296,24 +205,7 @@ At every position the LSTM makes three conceptually separate decisions:
 
 ### 6.3 One LSTM step
 
-The implementation concatenates previous hidden state and current input into one vector $z$ (shape 9 = 5 + 4), so every gate reads the same combined information. Four gate matrices of shape (5, 9) are involved:
-
-```python
-def lstm_step(x_t, h_prev, c_prev):
-    z = np.concatenate([h_prev, x_t])
-
-    forget_gate = sigmoid(W_forget    @ z + b_forget)
-    input_gate  = sigmoid(W_input     @ z + b_input)
-    candidate   = np.tanh (W_candidate @ z + b_candidate)
-
-    c_t = forget_gate * c_prev + input_gate * candidate
-
-    output_gate = sigmoid(W_output @ z + b_output)
-    h_t = output_gate * np.tanh(c_t)
-    return h_t, c_t, forget_gate, input_gate, output_gate
-```
-
-The line that carries the whole idea is the cell-state update:
+The implementation concatenates previous hidden state and current input into one vector $z$ (shape 9 = 5 + 4), so every gate reads the same combined information, and applies four gate matrices of shape (5, 9) - forget, input, candidate (tanh), output - in the standard order. The line that carries the whole idea is the cell-state update:
 
 ```text
 new memory
@@ -321,24 +213,13 @@ new memory
   + part of new information we decided to write
 ```
 
-In a real deep learning library these four matrices live inside the LSTM layer; the notebook writes them out so the unit's internals stay visible.
+Full `lstm_step` code in [[Recurrent Neural Networks and LSTMs - Notebook#6. One LSTM Step]]. In a real deep learning library these four matrices live inside the LSTM layer; the notebook writes them out so the unit's internals stay visible.
 
 ### 6.4 Dry run on the first token
 
-```text
-Token: brca1
+On `brca1` with random weights, all three gates sit **near 0.5** (sigmoid of a small random number lands mid-range - nothing has been learned yet), and the printed gate/cell/hidden vectors are in [[Recurrent Neural Networks and LSTMs - Notebook#6. One LSTM Step]]. Two observations:
 
-Forget gate: [0.561 0.501 0.56  0.416 0.42 ]
-Input gate : [0.444 0.462 0.503 0.501 0.523]
-Output gate: [0.534 0.455 0.5   0.48  0.558]
-
-Cell state c_t  : [ 0.211 -0.095  0.102 -0.19  -0.011]
-Hidden state h_t: [ 0.111 -0.043  0.051 -0.09  -0.006]
-```
-
-Two observations:
-
-1. The gates sit **near 0.5**, exactly what random weights with zero bias produce: the sigmoid of a small random number lands mid-range. Nothing has been learned yet.
+1. Near-0.5 gates are exactly what random weights with zero bias produce.
 2. The LSTM does **not** take one global binary decision. There is no single "remember this word / forget this word" switch: the gate is a **vector**, one value per dimension, so decisions are continuous and per-dimension.
 
 ### 6.5 Cell state versus hidden state
@@ -371,22 +252,7 @@ For text analytics, $h_t$ is what you pass to the next layer (e.g. an NER classi
 
 ### 6.6 Running the LSTM over the sentence
 
-The loop returns **two** sequences of shape `(6, 5)`:
-
-```text
-Hidden-state shape: (6, 5)
-Cell-state shape  : (6, 5)
-
-              h1     h2     h3     h4     h5
-brca1      0.111 -0.043  0.051 -0.090 -0.006
-mutations  0.042 -0.059  0.215 -0.156  0.041
-increase   0.136 -0.104  0.190 -0.102  0.007
-breast     0.039 -0.055  0.098  0.012  0.015
-cancer     0.093 -0.011  0.136 -0.064  0.021
-risk       0.138 -0.036  0.193 -0.077  0.039
-```
-
-`H_lstm` is what you would feed to the next layer; `C_lstm` is the internal memory pathway. Magnitudes are smaller than the RNN's because $h_t$ is the product of a near-0.5 output gate and a small cell state - which is why the cell-state values are worth inspecting too. With random weights, no semantic interpretation is possible.
+The loop returns **two** sequences of shape `(6, 5)` (printed matrices in [[Recurrent Neural Networks and LSTMs - Notebook#7. Running the LSTM Over the Sentence]]). `H_lstm` is what you would feed to the next layer; `C_lstm` is the internal memory pathway. Magnitudes are smaller than the RNN's because $h_t$ is the product of a near-0.5 output gate and a small cell state - which is why the cell-state values are worth inspecting too. With random weights, no semantic interpretation is possible.
 
 ## 7. Bidirectional RNNs and LSTMs
 
@@ -396,14 +262,7 @@ A standard left-to-right model only sees the left context. For `breast` in
 BRCA1 mutations increase breast cancer risk
 ```
 
-a forward RNN knows `BRCA1 mutations increase` but has not yet processed `cancer risk`. For NER the whole sentence is available, so the sequence is additionally run in reverse:
-
-```python
-H_forward          = run_rnn(X, W_x, W_h, b_h)
-H_backward_reversed = run_rnn(X[::-1], W_x, W_h, b_h)
-H_backward          = H_backward_reversed[::-1]   # restore token order
-H_bidirectional     = np.concatenate([H_forward, H_backward], axis=1)   # (6, 10)
-```
+a forward RNN knows `BRCA1 mutations increase` but has not yet processed `cancer risk`. For NER the whole sentence is available, so the sequence is additionally run in reverse (loop code in [[Recurrent Neural Networks and LSTMs - Notebook#8. Bidirectional Run]]).
 
 Three details worth being explicit about:
 

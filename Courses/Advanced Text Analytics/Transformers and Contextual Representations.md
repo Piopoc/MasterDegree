@@ -18,12 +18,12 @@ ai-first: true
 
 ## For Future Agent
 
-Study note for the [[Advanced Text Analytics]] course (Lecture 9 / ATA09) on **Transformer architecture, attention mechanisms, and contextual token representations**. Created 2026-10-26 by merging two `raw/` sources:
+Study note for the [[Advanced Text Analytics]] course (Lecture 9 / ATA09) on **Transformer architecture, attention mechanisms, and contextual token representations**. Created 2026-10-26 by merging two `raw/` sources; LaTeX syntax cleanup applied 2026-10-28 (Obsidian KaTeX: inline `$...$`, display `$$...$$`).
 
 - `[[ATA09]]` — detailed lecture companion on Transformers, attention, Q/K/V, scaled dot-product attention, multi-head attention, positional encodings, causal vs bidirectional masking, Transformer blocks, and the NER pipeline (with NumPy notebook walk-through, hand-specified toy vectors, reproducible numbers from untrained random weights).
 - `[[From Recurrence to Contextual Representations]]` — theoretical briefing on the shift from recurrent state compression (RNN/LSTM) to direct O(1) pairwise attention, language modeling as next-token probability estimation, autoregressive generation, self-supervised pretraining, post-pretraining alignment (instruction tuning, RLHF), and Transformer model roles (decoder-only / encoder-only / encoder-decoder).
 
-Use this note when a question involves: static vs contextual embeddings, attention as weighted sum, Query/Key/Value roles, scaled dot-product attention, self-attention parallelism vs recurrence, multi-head attention, positional encodings, causal masking, bidirectional encoding, Transformer block composition (LayerNorm, residual, FFN), stacking blocks, decoder-only/encoder-only/encoder-decoder configurations, autoregressive decoding with temperature/top-k/top-p, or the token-to-NER-label pipeline. Central caveat: every printed number in the lecture comes from **untrained random weights** — the values illustrate mechanics, never model quality.
+Use this note when a question involves: static vs contextual embeddings, attention as weighted sum, Query/Key/Value roles, scaled dot-product attention, self-attention parallelism vs recurrence, multi-head attention, positional encodings, causal masking, bidirectional encoding, Transformer block composition (LayerNorm, residual, FFN), stacking blocks, decoder-only/encoder-only/encoder-decoder configurations, autoregressive decoding with temperature/top-k/top-p, the pretraining → prompting → alignment pipeline, or the token-to-NER-label pipeline. Central caveat: every printed number in the lecture comes from **untrained random weights** — the values illustrate mechanics, never model quality. The NumPy notebook walkthroughs (dot-product scores, `np.triu` causal mask, random positional encoding) are collected in [[Transformers and Contextual Representations - Notebook]].
 
 ---
 
@@ -83,7 +83,7 @@ $$
 a_i = \sum_j \alpha_{ij} x_j
 $$
 
-where $(x_j)$ is a token vector and $(\alpha_{ij})$ is the weight assigned to token $(j)$ when representing token $(i)$. The weights indicate **how much each context vector contributes**.
+where $x_j$ is a token vector and $\alpha_{ij}$ is the weight assigned to token $j$ when representing token $i$. The weights indicate **how much each context vector contributes**.
 
 Attention = selective information integration.
 
@@ -91,7 +91,7 @@ Attention = selective information integration.
 
 ## 3. Where Do the Attention Weights Come From?
 
-In a real model, weights are not hand-specified. They are computed from a similarity score between the current token and each possible context token. The notebook uses the dot product as a first approximation:
+In a real model, weights are not hand-specified. They are computed from a similarity score between the current token and each possible context token. The notebook uses the dot product as a first approximation (toy vectors and softmax results in [[Transformers and Contextual Representations - Notebook#1. Dot-Product Similarity as a First Attention Score]]):
 
 $$
 \text{score}(x_i, x_j) = x_i \cdot x_j
@@ -133,32 +133,32 @@ Every token ends up with its own query, key, and value — three different learn
 
 ## 5. Scaled Dot-Product Attention
 
-To decide how much token \(i\) should attend to token \(j\), Transformers compare the **query of \(i\)** with the **key of \(j\)**:
+To decide how much token $i$ should attend to token $j$, Transformers compare the **query of $i$** with the **key of $j$**:
 
 $$
 \text{score}(i, j) = \frac{q_i \cdot k_j}{\sqrt{d_k}}
 $$
 
-The division by $(\sqrt{d_k})$ keeps dot-product magnitudes under control as dimensionality grows — large dot products push softmax into regions with tiny gradients.
+The division by $\sqrt{d_k}$ keeps dot-product magnitudes under control as dimensionality grows — large dot products push softmax into regions with tiny gradients.
 
-Because all tokens are stored as rows of a matrix \(X\), every comparison is computed at once with:
+Because all tokens are stored as rows of a matrix $X$, every comparison is computed at once with:
 
 $$
 Q @ K^T
 $$
 
-The result is a square matrix of size (tokens × tokens): rows are queries, columns are keys. Softmax is applied independently across every row, producing the **attention matrix** $(A)$. Each row sums to 1, and entry $(A[i,j])$ means:
+The result is a square matrix of size (tokens × tokens): rows are queries, columns are keys. Softmax is applied independently across every row, producing the **attention matrix** $A$. Each row sums to 1, and entry $A[i,j]$ means:
 
-> how much token position \(i\) uses the information from token position \(j\).
+> how much token position $i$ uses the information from token position $j$.
 
 ---
 
 ## 6. Using the Weights to Combine the Value Vectors
 
-The attention matrix tells us *where to get information from*. The \(V\) matrix contains the information that will actually be combined:
+The attention matrix tells us *where to get information from*. The $V$ matrix contains the information that will actually be combined:
 
 $$
-\text{contextualized output} = A @ V
+\text{contextualized output} = A{@}V
 $$
 
 For each token position, this computes a weighted sum of the value vectors. The output row for `bank` is no longer just a transformed version of the original `bank` vector: it contains a weighted combination of information from `pond`, `near`, and `bank`, according to the learned attention distribution.
@@ -191,15 +191,15 @@ The output has the same number of token positions as the input, and the dimensio
 
 | Architectural Parameter | Recurrent Pathways (RNN / LSTM) | Desired Direct Pathways |
 |-------------------------|----------------------------------|--------------------------|
-| Computational Dependency | Strictly sequential: position t depends on hₜ₋₁ | Fully parallelizable across all token positions |
-| Interaction Path Length | O(N) sequential steps between distant tokens | O(1) direct pairwise access operations |
-| Context Memory Capacity | Lossy: forced compression into fixed vector hₜ | Non-lossy: uncompressed, direct relational mapping |
+| Computational Dependency | Strictly sequential: position $t$ depends on $h_{t-1}$ | Fully parallelizable across all token positions |
+| Interaction Path Length | $O(N)$ sequential steps between distant tokens | $O(1)$ direct pairwise access operations |
+| Context Memory Capacity | Lossy: forced compression into fixed vector $h_t$ | Non-lossy: uncompressed, direct relational mapping |
 
 ---
 
 ## 8. Multi-Head Attention
 
-A Transformer normally uses several attention **heads** in parallel, not just one. Each head has its own \(W_Q, W_K, W_V\), so each head is free to learn a different pattern of relevance. The outputs of all heads are then concatenated (and, in a real model, passed through a learned output projection).
+A Transformer normally uses several attention **heads** in parallel, not just one. Each head has its own $W_Q, W_K, W_V$, so each head is free to learn a different pattern of relevance. The outputs of all heads are then concatenated (and, in a real model, passed through a learned output projection).
 
 $$
 \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)W^O
@@ -243,7 +243,7 @@ The resulting vector represents both *what token is here?* and *where is it in t
 
 ## 10. Causal Attention and Masking
 
-The Jurafsky & Martin chapter underlying this lecture first presents the Transformer as a **left-to-right language model**. In that setting, token position \(i\) may use itself and earlier positions, but not future tokens — otherwise next-token prediction would be trivial.
+The Jurafsky & Martin chapter underlying this lecture first presents the Transformer as a **left-to-right language model**. In that setting, token position $i$ may use itself and earlier positions, but not future tokens — otherwise next-token prediction would be trivial.
 
 This is implemented with a **causal mask**. For three positions, the allowed attention pattern is:
 
@@ -253,7 +253,7 @@ token 2 → token 1, token 2
 token 3 → token 1, token 2, token 3
 ```
 
-Future positions receive \(-∞\) before softmax, which converts them to zero probability. The notebook builds this mask with `np.triu`, adds it to the scaled scores, and applies row-wise softmax.
+Future positions receive $-\infty$ before softmax, which converts them to zero probability. The notebook builds this mask with `np.triu`, adds it to the scaled scores, and applies row-wise softmax (walkthrough in [[Transformers and Contextual Representations - Notebook#3. The Causal Mask with `np.triu`]]).
 
 Result: **causal self-attention** — `pond` cannot attend to `near` or `bank`; `near` cannot attend to `bank`; `bank` can attend to all three positions.
 
@@ -298,10 +298,10 @@ Residual connection
 
 Component roles:
 
-- **Multi-head self-attention:** mixes information across positions (token-mixing). Token \(i\) receives information from token \(j\).
-- **Feed-forward network:** transforms each token representation separately with a non-linear transformation. It does not mix positions. $(\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2)$
+- **Multi-head self-attention:** mixes information across positions (token-mixing). Token $i$ receives information from token $j$.
+- **Feed-forward network:** transforms each token representation separately with a non-linear transformation. It does not mix positions. $\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$
 - **Residual connections:** add the component input back to its output, so the original representation keeps flowing while layers add new information. They also pass uninterrupted gradient signals.
-- **Layer normalization:** rescales each token representation into a numerically stable range; mainly important for training deep Transformers reliably. $(\text{Output} = \text{LayerNorm}(x + \text{SubLayer}(x)))$
+- **Layer normalization:** rescales each token representation into a numerically stable range; mainly important for training deep Transformers reliably. $\text{Output} = \text{LayerNorm}(x + \text{SubLayer}(x))$
 
 ---
 
@@ -333,16 +333,23 @@ Each layer receives the representations created by the previous layer, so contex
 
 Before dissecting inner neural mechanisms, a language model is best analyzed through a functional black-box abstraction: estimating probability distributions over discrete token sequences.
 
-Formally, given a sequence of tokens $(X = (x_1, x_2, \dots, x_N))$, the joint probability distribution $(P(X))$ over the entire sequence is factorized via the chain rule of probability:
+Formally, given a sequence of tokens $X = (x_1, x_2, \dots, x_N)$, the joint probability distribution $P(X)$ over the entire sequence is factorized via the chain rule of probability:
 
 $$
 P(X) = \prod_{i=1}^{N} P(x_i \mid x_1, x_2, \dots, x_{i-1})
 $$
 
-The core function of a Large Language Model (LLM) is strictly to model these conditional probability distributions $(P(x_i \mid x_{<i}))$.
+The core function of a Large Language Model (LLM) is strictly to model these conditional probability distributions $P(x_i \mid x_{<i})$.
 
-**Input Context (Prefix):** an ordered sequence of context tokens $(X_{<i} = (x_1, x_2, \dots, x_{i-1}))$.
-**Output Distribution:** a categorical probability distribution over the full discrete vocabulary $(V)$, mapping every candidate token $(w \in V)$ to a likelihood score $(P(x_i = w \mid X_{<i}))$.
+**Input Context (Prefix):** an ordered sequence of context tokens $X_{<i} = (x_1, x_2, \dots, x_{i-1})$.
+**Output Distribution:** a categorical probability distribution over the full discrete vocabulary $V$, mapping every candidate token $w \in V$ to a likelihood score $P(x_i = w \mid X_{<i})$.
+
+The operational pipeline of next-token prediction:
+
+| Pipeline Phase | Description | Example |
+|---|---|---|
+| **Input Context** | Sequence of tokens (prefix/prompt) fed into the model black box. | `"So long and thanks for"` |
+| **Model Output** | Probability distribution assigned to every token in the vocabulary. | `"all"` (.44) `"the"` (.33) `"your"` (.15) `"that"` (.08) |
 
 An LLM does not natively "write prose" or execute deliberate reasoning in a single step. Rather, it computes static categorical distributions over a defined vocabulary. Turning continuous text generation into a controllable process requires explicit inference sampling strategies over these predicted probability distributions.
 
@@ -350,14 +357,14 @@ An LLM does not natively "write prose" or execute deliberate reasoning in a sing
 
 ## 15. The Mechanics of Autoregressive Generation
 
-Autoregressive generation converts static, single-step probability distributions $(P(x_t \mid X_{<t}))$ into continuous, multi-token sequences. By appending each predicted output back into the context buffer, the system sequentially constructs complex textual outputs.
+Autoregressive generation converts static, single-step probability distributions $P(x_t \mid X_{<t})$ into continuous, multi-token sequences. By appending each predicted output back into the context buffer, the system sequentially constructs complex textual outputs.
 
 The formal autoregressive execution loop proceeds through four stages:
 
-1. **Predict:** Compute the conditional probability distribution over the vocabulary $(V)$ for the current sequence step $(t)$: $(P(x_t \mid x_1, x_2, \dots, x_{t-1}))$
-2. **Choose / Sample:** Select a specific token $(x_t \in V)$ from the output probability distribution according to a defined decoding strategy
-3. **Append:** Update the running context sequence: $(X_{\le t} = (x_1, x_2, \dots, x_{t-1}, x_t))$
-4. **Iterate:** Re-evaluate the model using $(X_{\le t})$ as the new input prefix and repeat steps 1–3 until an end-of-sequence (EOS) token is produced or a sequence length limit is reached.
+1. **Predict:** Compute the conditional probability distribution over the vocabulary $V$ for the current sequence step $t$: $P(x_t \mid x_1, x_2, \dots, x_{t-1})$
+2. **Choose / Sample:** Select a specific token $x_t \in V$ from the output probability distribution according to a defined decoding strategy
+3. **Append:** Update the running context sequence: $X_{\le t} = (x_1, x_2, \dots, x_{t-1}, x_t)$
+4. **Iterate:** Re-evaluate the model using $X_{\le t}$ as the new input prefix and repeat steps 1–3 until an end-of-sequence (EOS) token is produced or a sequence length limit is reached.
 
 ```
 +------------------------+      +------------------------+
@@ -372,14 +379,14 @@ The formal autoregressive execution loop proceeds through four stages:
 +------------------------+      +------------------------+
 ```
 
-The characteristics of the generated text depend heavily on decoding hyper-parameters. Before passing unnormalized logit outputs \(z_i\) into the softmax function, a temperature parameter \(T > 0\) is applied:
+The characteristics of the generated text depend heavily on decoding hyper-parameters. Before passing unnormalized logit outputs $z_i$ into the softmax function, a temperature parameter $T > 0$ is applied:
 
 $$
 P(x_i) = \frac{\exp(z_i / T)}{\sum_{j=1}^{|V|} \exp(z_j / T)}
 $$
 
 - **High Temperature (T > 1.0):** Flattens the probability distribution, increasing entropy and yielding diverse, highly stochastic sampling outcomes.
-- **Low Temperature (0 < T < 1.0):** Sharpens the distribution around high-probability modes, reducing entropy and driving generation toward deterministic or greedy selection ($(T \to 0)$).
+- **Low Temperature (0 < T < 1.0):** Sharpens the distribution around high-probability modes, reducing entropy and driving generation toward deterministic or greedy selection ($T \to 0$).
 - **Top-k sampling:** restricts selection to the k most probable tokens.
 - **Top-p (nucleus) sampling:** dynamically truncates the candidate set to the smallest set of tokens whose cumulative probability exceeds threshold p.
 
@@ -403,20 +410,39 @@ Through large-scale next-token prediction, models automatically map complex regu
 - **Factual Patterns and World Knowledge:** "A Room of One's Own" → Virginia Woolf; √4 → 2
 - **Syntactic Regularities:** complex grammatical structures, agreement rules, nested linguistic features
 
-Because the model encodes these relationships directly within its parameter space, **prompting** serves as an in-context task specification interface. Modifying the prefix context $(X_{<i})$ shifts the model's conditional distribution, steering generation to perform specific tasks without modifying underlying model parameters.
+Because the model encodes these relationships directly within its parameter space, **prompting** serves as an in-context task specification interface. Modifying the prefix context $X_{<i}$ shifts the model's conditional distribution, steering generation to perform specific tasks without modifying underlying model parameters.
 
 **Key caveats:** because self-supervised pretraining extracts statistical correlations from uncurated corpora, base models reflect all flaws, biases, and inaccuracies present in their training data:
 
 - **Inherited Biases:** unfiltered training data embeds historical stereotypes, harmful associations, and toxic linguistic patterns directly into the model's probability predictions.
-- **Absence of Truthfulness Guarantees:** cross-entropy loss optimizes for statistical plausibility, not factual accuracy or logical validity. Highly fluent, grammatically flawless text can easily convey completely hallucinated or incorrect information.
+- **Fluency vs Factuality:** cross-entropy loss optimizes for statistical plausibility, not factual accuracy or logical validity. Highly fluent, grammatically flawless text can easily convey completely hallucinated or incorrect information.
 
 Architectural capacity alone is insufficient for reliable deployment. Models require post-pretraining alignment to realign output distributions with human intent, safety guidelines, and task accuracy.
+
+### From corpora to a modern assistant
+
+The whole implementation path, condensed into a single view:
+
+```
+[ Large Text Corpora ]
+         │
+         ▼ (Self-Supervised Pretraining: Next-Token Prediction)
+[ Base Model Architecture ] ─── (Decoder / Encoder / Encoder-Decoder Roles)
+         │
+         ▼ (Post-Processing & Refinement)
+[ Prompting & Decoding Strategies ] ── (Sampling, Temperature Controls)
+         │
+         ▼ (Instruction Tuning & Alignment)
+[ Modern AI Assistant System ]
+```
+
+Reading the diagram: prompting modifies the context prefix without touching model weights; decoding strategies (sampling, temperature) alter how tokens are drawn from the predicted distributions; instruction tuning and alignment are applied *after* pretraining to turn raw next-token prediction into instruction-compliant, safe systems.
 
 ---
 
 ## 17. Transformer Components and Model Roles
 
-The Transformer architecture resolves the recurrent bottleneck by replacing step-by-step state propagation with parallelized multi-head self-attention. Instead of squeezing context through intermediate state vectors, attention dynamics enable direct O(1) relational connections between every pair of tokens in a sequence regardless of distance.
+The Transformer architecture resolves the recurrent bottleneck by replacing step-by-step state propagation with parallelized multi-head self-attention. Instead of squeezing context through intermediate state vectors, attention dynamics enable direct $O(1)$ relational connections between every pair of tokens in a sequence regardless of distance.
 
 Pairwise relevance scores are computed by scaled dot-products between Queries and Keys, passed through a softmax operator, and multiplied by Values:
 
@@ -424,7 +450,7 @@ $$
 \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
 $$
 
-Individual attention layers are integrated into modular Transformer processing blocks (see Section 12). Depending on structural masking and directional attention settings, this modular block can be configured into three primary model architectures:
+**Architecture vs. role distinction:** the *Transformer* is the underlying neural architecture; *encoder*, *decoder*, and *encoder-decoder* are distinct structural roles that the same architecture implements, determined by masking and attention settings. Individual attention layers are integrated into modular Transformer processing blocks (see Section 12). Depending on structural masking and directional attention settings, this modular block can be configured into three primary model architectures:
 
 | Architectural Configuration | Attention Directionality | Operational Specialization | Exemplar Paradigm |
 |-----------------------------|--------------------------|----------------------------|-------------------|
@@ -503,31 +529,33 @@ The goal is similar — produce representations that depend on context — but t
 12. Autoregressive generation iterates Predict → Choose/Sample → Append → Iterate.
 13. Self-supervised pretraining extracts linguistic structure implicitly; prompting steers generation without parameter changes.
 14. Decoder-only, encoder-only, and encoder-decoder Transformer configurations serve different operational specializations.
+15. Transformer is the architecture; encoder / decoder / encoder-decoder are roles within it — and instruction tuning + alignment turn a base model into a usable assistant.
 
 ---
 
 ## Key Formulas (Quick Reference)
 
-- Weighted sum: $(\displaystyle a_i = \sum_j \alpha_{ij} x_j)$
-- Dot-product score: $(\displaystyle \text{score}(x_i, x_j) = x_i \cdot x_j)$
-- Q/K/V projections: $(\displaystyle q_i = x_i W_Q,\; k_i = x_i W_K,\; v_i = x_i W_V)$
-- Scaled dot-product attention: $(\displaystyle \text{score}(i,j) = \frac{q_i \cdot k_j}{\sqrt{d_k}})$
-- Attention matrix: $(\displaystyle A = \text{row\_softmax}\left(\frac{Q K^T}{\sqrt{d_k}}\right))$
-- Multi-head attention: $(\displaystyle \text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)W^O)$
-- Transformer input: $(\displaystyle X_{\text{input}} = X_{\text{token}} + X_{\text{position}})$
-- FFN: $(\displaystyle \text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2)$
-- Residual + Norm: $(\displaystyle \text{Output} = \text{LayerNorm}(x + \text{SubLayer}(x)))$
-- Chain rule for language modeling: $(\displaystyle P(X) = \prod_{i=1}^{N} P(x_i \mid x_{<i}))$
-- Temperature scaling: $(\displaystyle P(x_i) = \frac{\exp(z_i / T)}{\sum_{j=1}^{|V|} \exp(z_j / T)})$
+- Weighted sum: $a_i = \sum_j \alpha_{ij} x_j$
+- Dot-product score: $\text{score}(x_i, x_j) = x_i \cdot x_j$
+- Q/K/V projections: $q_i = x_i W_Q,\; k_i = x_i W_K,\; v_i = x_i W_V$
+- Scaled dot-product attention: $\text{score}(i,j) = \dfrac{q_i \cdot k_j}{\sqrt{d_k}}$
+- Attention matrix: $A = \text{row\_softmax}\!\left(\dfrac{Q K^T}{\sqrt{d_k}}\right)$
+- Contextualized output: $A @ V$
+- Multi-head attention: $\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \dots, \text{head}_h)W^O$
+- Transformer input: $X_{\text{input}} = X_{\text{token}} + X_{\text{position}}$
+- FFN: $\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$
+- Residual + Norm: $\text{Output} = \text{LayerNorm}(x + \text{SubLayer}(x))$
+- Chain rule for language modeling: $P(X) = \prod_{i=1}^{N} P(x_i \mid x_{<i})$
+- Temperature scaling: $P(x_i) = \dfrac{\exp(z_i / T)}{\sum_{j=1}^{|V|} \exp(z_j / T)}$
 
 ---
 
 ## Suggested Review Questions
 
 1. Why can't a static embedding distinguish "river bank" from "investment bank"?
-2. What does each row of the attention matrix \(A\) represent, and why does it sum to 1?
+2. What does each row of the attention matrix $A$ represent, and why does it sum to 1?
 3. What is the difference between query, key, and value in attention?
-4. Why divide by \(\sqrt{d_k}\) in scaled dot-product attention?
+4. Why divide by $\sqrt{d_k}$ in scaled dot-product attention?
 5. How does self-attention differ from an RNN in terms of computation and parallelism?
 6. Why do Transformers require explicit position encodings?
 7. What does a causal mask do, and when is bidirectional attention preferable?
@@ -536,6 +564,7 @@ The goal is similar — produce representations that depend on context — but t
 10. What are the three primary Transformer model configurations, and what is each specialized for?
 11. How does temperature affect autoregressive sampling?
 12. What is the difference between a base model and a post-pretraining aligned model?
+13. What is the difference between the Transformer architecture and the encoder/decoder roles?
 
 ---
 

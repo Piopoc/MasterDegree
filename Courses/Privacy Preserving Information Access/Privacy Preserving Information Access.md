@@ -29,5 +29,5 @@ Course index for **Privacy Preserving Information Access (PPIA)** - the hub note
 4. [[Macrodata Protection]] - release paradigms, sensitive cells, suppression/rounding/CTA, $(n,k)$-rule and $p$-percentage rule.
 5. [[Microdata Disclosure Risks and Sanitization]] - identity/attribute/inferential disclosure, outliers, natural defenses, desiderata.
 6. [[Microdata Masking and Synthetic Data]] - full technique catalog (non-perturbative, perturbative, synthetic) with applicability matrix.
-7. [[Privacy Evaluation Metrics]] - confidentiality measurement, information loss, R-U map (mind-map level, details TBD).
-8. [[k-Anonymity]] - identity-linking threat, formal definition and q-blocks, generalization/suppression, k-minimality metrics, Mondrian algorithm.
+7. [[Privacy Evaluation Metrics]] - confidentiality measurement (avg q-block size, population uniqueness), information-loss metrics, Discernibility Metric, R-U map.
+8. [[k-Anonymity]] - identity-linking threat, formal definition and q-blocks, generalization/suppression, k-minimality metrics, Mondrian algorithm, plus the ℓ-diversity and t-closeness extensions.
