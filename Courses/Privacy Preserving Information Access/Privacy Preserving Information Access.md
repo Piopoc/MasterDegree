@@ -31,3 +31,5 @@ Course index for **Privacy Preserving Information Access (PPIA)** - the hub note
 6. [[Microdata Masking and Synthetic Data]] - full technique catalog (non-perturbative, perturbative, synthetic) with applicability matrix.
 7. [[Privacy Evaluation Metrics]] - confidentiality measurement (avg q-block size, population uniqueness), information-loss metrics, Discernibility Metric, R-U map.
 8. [[k-Anonymity]] - identity-linking threat, formal definition and q-blocks, generalization/suppression, k-minimality metrics, Mondrian algorithm, plus the ℓ-diversity and t-closeness extensions.
+9. [[Information Retrieval Foundations]] - DB vs IR semantics, the "Y" architecture, preprocessing and inverted indexes, TF-IDF/VSM/BM25, Cranfield evaluation with P/R/F and DCG/nDCG.
+10. [[Recommender Systems]] - paradox of choice and decision fatigue, user-as-query architecture, rating matrix, content-based vs collaborative filtering taxonomy, evaluation framings (P/R/F1, nDCG/AP, AUC, RMSE).

@@ -29,7 +29,6 @@ Each course index is the single place where that course's study notes are listed
 
 - [_OPENCODE.md](_OPENCODE.md) - operating rules for agents in this vault (read first)
 - [[Kanban]] - kanban board for course tasks (Graph Databases / Advanced Text Analytics / PPIA)
-- [[LaTeX Box Toolkit]] - recipes for LaTeX boxes in notes (definition boxes, cross-link boxes)
 - [log.md](log.md) - append-only operation log (the session audit trail)
 - [index.md](index.md) - this file
 
