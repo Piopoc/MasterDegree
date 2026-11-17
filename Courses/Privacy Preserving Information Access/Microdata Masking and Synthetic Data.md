@@ -122,6 +122,7 @@ Synthetic values for *some* attributes or tuples, combined with real data:
 - [[Data Security and Privacy Fundamentals]] - what quasi-identifiers are
 - [[Microdata Disclosure Risks and Sanitization]] - the threats these techniques defend against
 - [[Privacy Evaluation Metrics]] - measuring what masking costs
+- [[Differential Privacy Foundations]] - canonical DP treatment of randomized response (coin-toss variant, $(\ln 3, 0)$-DP proof)
 
 ## Sources
 

@@ -95,6 +95,7 @@ Databases that restrict query capability to **distributional queries** via an AP
 - [[Microdata Masking and Synthetic Data]] - record-level techniques
 - [[Privacy Evaluation Metrics]] - measuring confidentiality and information loss
 - [[Microdata Disclosure Risks and Sanitization]] - why release control is needed at all
+- [[Differential Privacy Foundations]] - formal treatment of the DP protection technique for query-based releases (differencing and reconstruction attacks)
 
 ## Sources
 

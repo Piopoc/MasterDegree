@@ -266,6 +266,7 @@ A tighter $t$ means stronger protection but exponentially harder computation - t
 - [[Microdata Masking and Synthetic Data]] - perturbative alternative
 - [[Macrodata Protection]] - aggregate-level protection
 - [[Privacy Evaluation Metrics]] - measuring the utility cost
+- [[Differential Privacy Foundations]] - mechanism-level alternative immune to background-knowledge attacks
 
 ## Sources
 
