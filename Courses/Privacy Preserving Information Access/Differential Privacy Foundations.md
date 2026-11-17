@@ -14,7 +14,7 @@ ai-first: true
 
 ## For Future Agent
 
-Study note for the [[Privacy Preserving Information Access]] course covering **Differential Privacy, Part I** (59-slide lecture): why anonymization and aggregate statistics fail (Fundamental Law of Information Recovery, differencing attack, query auditing, "just a few" policy), the core intuition (learn as much about me as if I had not contributed), randomized response with its full derivation, the formal machinery (probability simplex, randomized algorithm $M: A \to \Delta(B)$, database histograms, $\ell_1$ distance, neighbouring databases), the $(\varepsilon,\delta)$-DP definition, how to choose $\varepsilon$ and $\delta$, privacy loss, and the five properties (linkage neutralization, quantified loss, composition, group privacy, post-processing). Created 2026-11-17 from `raw/Differential_Privacy1.md`. Concrete mechanisms (Laplace, sensitivity) are **not** in this part - expect a Part II. Worked numeric examples were added to make the slides self-explanatory; slide typos are corrected silently in the formulas and listed in Section 12.
+Study note for the [[Privacy Preserving Information Access]] course covering **Differential Privacy, Part I** (59-slide lecture): why anonymization and aggregate statistics fail (Fundamental Law of Information Recovery, differencing attack, query auditing, "just a few" policy), the core intuition (learn as much about me as if I had not contributed), randomized response with its full derivation, the formal machinery (probability simplex, randomized algorithm $M: A \to \Delta(B)$, database histograms, $\ell_1$ distance, neighbouring databases), the $(\varepsilon,\delta)$-DP definition, how to choose $\varepsilon$ and $\delta$, privacy loss, and the five properties (linkage neutralization, quantified loss, composition, group privacy, post-processing). Created 2026-11-17 from `raw/Differential_Privacy1.md`. Concrete mechanisms (Laplace, sensitivity) are **not** in this part - they are covered in Part II (see Related). Worked numeric examples were added to make the slides self-explanatory; slide typos are corrected silently in the formulas and listed in Section 12.
 
 ## 1. Why We Need Something New
 
@@ -364,6 +364,7 @@ Slide typos fixed in the formulas above (the raw is an OCR'd PDF export):
 
 ## Related
 
+- [[Differential Privacy Mechanisms]] - Part II: sensitivity, Laplace, Gaussian, exponential and sparse vector mechanisms that instantiate this definition
 - [[k-Anonymity]] - syntactic anonymization and its background-knowledge and skewness attacks, which DP is designed to avoid
 - [[Macrodata Protection]] - query-based releases, differencing and reconstruction attacks, DP as protection technique
 - [[Microdata Masking and Synthetic Data]] - perturbative masking, including randomized response

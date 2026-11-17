@@ -174,6 +174,7 @@ This is why the trust annotation matters: privacy protection is stated as a *des
 
 - [[Information Retrieval Foundations]] - part 1 of the same lecture; source of P/R/F, AP, nDCG and the ranking framing
 - [[Privacy Evaluation Metrics]] - the course's privacy-side measurement vocabulary, complementary to the utility metrics used here
+- [[Differential Privacy Mechanisms]] - DP release of popularity counts and the sparse vector technique applied to a similarity-group recommender
 
 ## Sources
 
