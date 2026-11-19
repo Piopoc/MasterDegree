@@ -657,6 +657,7 @@ Each step moves from surface to meaning and adds legally **contestable interpret
 - [[Advanced Named Entity Recognition - Notebook]] - Lecture 12: `SpanCategorizer`, `doc.spans["sc"]`, GLiNER demo
 - [[Biomedical Named Entity Recognition and Concept Normalization - Notebook]] - Lecture 13: retrieval-based normalization, Accuracy@1, bi-/cross-encoders
 - [[Knowledge Resources for Text Analytics - Notebook]] - Lecture 2: `PhraseMatcher`, `broader_concepts` traversal
+- [[Automatic Term Extraction - Notebook]] - Lecture 15: same GDPR domain, statistical term extraction pipeline
 - [[RDF Data Model]] - cross-course bridge ([[Graph Databases]]): triples, Turtle, SPARQL
 - [[Advanced Text Analytics]] - course hub
 

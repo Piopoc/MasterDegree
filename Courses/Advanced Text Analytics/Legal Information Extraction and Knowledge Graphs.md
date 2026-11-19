@@ -247,6 +247,7 @@ A flat list of spans cannot answer a join across case law, legislation and vocab
 - [[Annotation and Evaluation of Information Extraction]] - strict vs relaxed matching used in the legal evaluation
 - [[OWL SKOS Punning Football Ontology]] - cross-course bridge ([[Graph Databases]]): canonical OWL and SKOS modeling
 - [[Linked Open Data]] - cross-course bridge: persistent URIs and vocabulary reuse
+- [[Automatic Term Extraction]] - Lecture 15: from legal NER (entities, references) to legal ATE (concept-bearing terms), EuroVoc as ranking evidence
 
 ## Sources
 

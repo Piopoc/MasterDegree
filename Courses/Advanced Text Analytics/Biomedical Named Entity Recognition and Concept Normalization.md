@@ -180,6 +180,7 @@ Diagnostic error analysis then separates failures into: **boundary errors** (e.g
 - [[Knowledge Resources for Text Analytics]] - Lecture 2: terminologies, controlled vocabularies, ontologies; mention recognition vs concept normalization
 - [[TF-IDF and Static Embeddings]] - Lecture 4: the TF-IDF and cosine machinery reused here in character n-gram form
 - [[Advanced Named Entity Recognition]] - Lecture 12: the span-based NER models that feed the normalization pipeline
+- [[Automatic Term Extraction]] - Lecture 15: the same candidate generation vs ranking split, applied to discovering domain terms
 
 ## Sources
 
